@@ -19,6 +19,7 @@ ai = 'O'
 
 # default grid list
 number_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+corner_numbers = ['1', '3', '7', '9']
 
 
 def print_gui(grid):
@@ -197,8 +198,11 @@ def ai_logic(grid):
 
             # if there are no viable moves for the AI to win and the player isn't one move away from winning, the else condition will trigger and the first available move is selected by the AI
             if min_cost_value != 99999:
-                cell_selection = random.choice(
-                    ai_cost[min_cost_index]['available'])
+                cell_selection = random.choice(ai_cost[min_cost_index]['available'])
+                for each in ai_cost[min_cost_index]['available']:
+                    if str(each) in corner_numbers:
+                        cell_selection = each
+                        break
             else:
                 for each in ai_cost:
                     if len(each['available']) > 0:

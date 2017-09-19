@@ -93,9 +93,9 @@ def cost_check(turn, grid):
         available = []
         for k in range_index:
             if grid[k] in number_list:
-                available.append(k)
+                available.append(k + 1)
             elif grid[k] == turn:
-                chosen.append(k)
+                chosen.append(k + 1)
 
         cost_result.append({'chosen': chosen, 'available': available})
 
@@ -106,9 +106,9 @@ def cost_check(turn, grid):
         available = []
         for k in range_index:
             if grid[k] in number_list:
-                available.append(k)
+                available.append(k + 1)
             elif grid[k] == turn:
-                chosen.append(k)
+                chosen.append(k + 1)
 
         cost_result.append({'chosen': chosen, 'available': available})
 
@@ -118,9 +118,9 @@ def cost_check(turn, grid):
     available = []
     for k in range_index:
         if grid[k] in number_list:
-            available.append(k)
+            available.append(k + 1)
         elif grid[k] == turn:
-            chosen.append(k)
+            chosen.append(k + 1)
 
     cost_result.append({'chosen': chosen, 'available': available})
 
@@ -130,9 +130,9 @@ def cost_check(turn, grid):
     available = []
     for k in range_index:
         if grid[k] in number_list:
-            available.append(k)
+            available.append(k + 1)
         elif grid[k] == turn:
-            chosen.append(k)
+            chosen.append(k + 1)
 
     cost_result.append({'chosen': chosen, 'available': available})
 
@@ -182,7 +182,7 @@ def ai_logic(grid):
         # list keeps track of cells chosen - ai uses this to win
         if grid[4] != player and grid[4] != ai:
             # grid[4] = ai
-            cell_selection = 4
+            cell_selection = 4 + 1
         else:
             # find the min cost move
             min_cost_value = 99999
@@ -197,13 +197,13 @@ def ai_logic(grid):
 
             # if there are no viable moves for the AI to win and the player isn't one move away from winning, the else condition will trigger and the first available move is selected by the AI
             if min_cost_value != 99999:
-                cell_selection = random.choice(ai_cost[min_cost_index]['available'])
+                cell_selection = random.choice(
+                    ai_cost[min_cost_index]['available'])
             else:
                 for each in ai_cost:
                     if len(each['available']) > 0:
                         cell_selection = random.choice(each['available'])
                         break
-                
 
     return cell_selection
 
@@ -240,14 +240,21 @@ def main():
                 if x.lower() == 'q':
                     return
 
-                # convert string input to an int
-                x = int(x)
+                try:
+                    # convert string input to an int
+                    x = int(x)
 
-                # validation to check if the chosen cell is empty
-                if grid[x - 1] not in number_list:
-                    print('Error - that cell is already taken. Try again.')
-                else:
-                    error_check = 1  # if this executes, then error check was passed
+                    # checks to see if the input is a value between 1-9
+                    if str(x) not in number_list:
+                        print('Error - enter a number between 1-9 to select a cell on the grid.')
+                    else:
+                        # validation to check if the chosen cell is empty
+                        if grid[x - 1] not in number_list:
+                            print('Error - that cell is already taken. Try again.')
+                        else:
+                            error_check = 1  # if this executes, then error check was passed
+                except ValueError:
+                    print('Error - make sure to enter a number. Preferably one that\'s between 1-9.')
 
             grid[x - 1] = player
             current_player = 2
@@ -255,10 +262,10 @@ def main():
             # logic determines best possible move for AI
             x = ai_logic(grid)
 
-            print('## AI HAS PICKED CELL %s ##' % (x + 1))
+            print('## AI HAS PICKED CELL %s ##' % (x))
 
             # best possible move for AI is executed
-            grid[x] = ai
+            grid[x - 1] = ai
 
             # switches turns
             current_player = 1
@@ -273,9 +280,9 @@ def main():
         # remind the user that he's a mere mortal and will probably never win
         if winner != 0:
             if winner == 1:
-                print("Vitory! Congrats you have achieved the impossible.")
+                print("Vitory! Congrats you have achieved the almost impossible.")
             elif winner == 2:
-                print("Defeat! It's ok, you have proven that you're only human, well, a blind human. Honestly, how did you not see that move?")
+                print("Defeat! It's ok, you have proven that you're only human. Well, a blind human. Honestly, how did you not see that move?")
             elif winner == 3:
                 print("Game has ended in a tie. Can't say I didn't see that coming.")
 

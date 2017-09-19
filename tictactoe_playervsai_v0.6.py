@@ -1,6 +1,6 @@
 # PYTHON BASED TIC-TAC-TOE GAME WITH A WORKING AI [BEATABLE]
 # AUTHOR: SELIM CAM
-# DATE: 09.07.2017
+# DATE: 09.18.2017
 
 #  X | O | X
 # --- --- ---
@@ -77,7 +77,7 @@ def check_winner(grid):
 
 
 def cost_check(turn, grid):
-    # list stores all the possible moves and their respective costs to win using that route
+    # grid stores all the possible moves and their respective costs to win using that route
     cost_result = []
 
     # determine who opponent is
@@ -195,8 +195,15 @@ def ai_logic(grid):
                         min_cost_value = len(each['available'])
                         min_cost_index = z
 
-            cell_selection = random.choice(
-                ai_cost[min_cost_index]['available'])
+            # if there are no viable moves for the AI to win and the player isn't one move away from winning, the else condition will trigger and the first available move is selected by the AI
+            if min_cost_value != 99999:
+                cell_selection = random.choice(ai_cost[min_cost_index]['available'])
+            else:
+                for each in ai_cost:
+                    if len(each['available']) > 0:
+                        cell_selection = random.choice(each['available'])
+                        break
+                
 
     return cell_selection
 
@@ -266,9 +273,9 @@ def main():
         # remind the user that he's a mere mortal and will probably never win
         if winner != 0:
             if winner == 1:
-                print("Vitory! Congrats you have achieved the almost impossible.")
+                print("Vitory! Congrats you have achieved the impossible.")
             elif winner == 2:
-                print("Defeat! It's ok, you have proven that you're only human, well, a blind human. Honestly, how did you not see that?")
+                print("Defeat! It's ok, you have proven that you're only human, well, a blind human. Honestly, how did you not see that move?")
             elif winner == 3:
                 print("Game has ended in a tie. Can't say I didn't see that coming.")
 

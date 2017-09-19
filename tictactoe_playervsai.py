@@ -284,7 +284,7 @@ def main():
         # remind the user that he's a mere mortal and will probably never win
         if winner != 0:
             if winner == 1:
-                print("Vitory! Congrats you have achieved the almost impossible.")
+                print("Vitory! Congrats you have achieved the impossible.")
             elif winner == 2:
                 print("Defeat! It's ok, you have proven that you're only human. Well, a blind human. Honestly, how did you not see that move?")
             elif winner == 3:

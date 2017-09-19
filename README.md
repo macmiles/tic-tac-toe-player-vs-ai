@@ -2,7 +2,8 @@
 Go head to head against a robot in an intense game of tic-tac-toe.
 
 ## How to play
-You can initiate the game by running `python tictactoe_playervsai.py` on your command line (windows) or terminal (mac).
+Online - https://trinket.io/python/42dde07260?runOption=run
+Desktop - You can initiate the game by running `python tictactoe_playervsai.py` on your command line (windows) or terminal (mac).
 
 ## Difficulty Level
 She's unbeatable, so be mentally prepared to tie a depressing amount of times.

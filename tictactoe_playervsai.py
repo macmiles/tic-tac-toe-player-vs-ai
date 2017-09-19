@@ -1,6 +1,6 @@
 # PYTHON BASED TIC-TAC-TOE GAME WITH A WORKING AI
 # AUTHOR: SELIM CAM
-# DATE: 09.18.2017
+# DATE: 09.19.2017
 
 #  X | O | X
 # --- --- ---
@@ -11,7 +11,7 @@
 import random
 
 # set value to 1 to better understand how the AI algorithm makes decisions
-debug_mode = 1
+debug_mode = 0
 
 # default user symbols
 player = "X"
@@ -23,13 +23,13 @@ corner_numbers = ['1', '3', '7', '9']
 
 
 def print_gui(grid):
-    print()
+    print('')
     print(' %s | %s | %s ' % (grid[0], grid[1], grid[2]))
     print('--- --- ---')
     print(' %s | %s | %s ' % (grid[3], grid[4], grid[5]))
     print('--- --- ---')
     print(' %s | %s | %s ' % (grid[6], grid[7], grid[8]))
-    print()
+    print('')
     return
 
 

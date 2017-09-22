@@ -33,12 +33,13 @@ def print_gui(grid):
 
 
 def check_winner(grid):
+    # winner = 0 (default), 1 (player wins), 2 (ai wins), 3 (tie)
     winner = 0
 
     turn_list = [player, ai]
 
     for turn in turn_list:
-        # horizontal check - player & ai
+        # horizontal check
         for i in range(3):
             if grid[0 + (i * 3)] == turn and grid[1 + (i * 3)] == turn and grid[2 + (i * 3)] == turn:
                 if turn == player:
@@ -47,7 +48,7 @@ def check_winner(grid):
                     winner = 2
                 break
 
-        # vertical check - player & ai
+        # vertical check
         for j in range(3):
             if grid[0 + j] == turn and grid[3 + j] == turn and grid[6 + j] == turn:
                 if turn == player:
@@ -56,7 +57,7 @@ def check_winner(grid):
                     winner = 2
                 break
 
-        # diagonal check - player
+        # diagonal check
         if grid[0] == turn and grid[4] == turn and grid[8] == turn:
             if turn == player:
                 winner = 1
@@ -70,11 +71,13 @@ def check_winner(grid):
                 winner = 2
             break
 
+    # checks to see how many of the cells in the grid have been selected
     selected_cells = 0
     for each in grid:
         if each not in number_list:
             selected_cells += 1
-
+    
+    # if all cells in the grid have been selected and there's still no winner, we have a tie game (winner == 3)
     if selected_cells == 9:
         winner = 3
 
@@ -212,12 +215,12 @@ def ai_logic(grid):
 
 
 def main():
-    # inform user on how to exit app
+    # app header
     print(
         'TIC-TAC-TOE GAME BY SELIM CAM [NOTE: enter "q" to quit at any time]')
     print('===================================================================')
 
-    # winner check
+    # set winner to default value
     winner = 0
 
     # player gets to go first because humans > AI
@@ -260,8 +263,11 @@ def main():
                 except ValueError:
                     print(
                         'Error - make sure to enter a number. Preferably one that\'s between 1-9.')
-
+            
+            # execute the players move
             grid[x - 1] = player
+            
+            # switch turns
             current_player = 2
         else:  # AI ACTIONS
             # logic determines best possible move for AI
@@ -269,10 +275,10 @@ def main():
 
             print('## AI HAS PICKED CELL %s ##' % (x))
 
-            # best possible move for AI is executed
+            # executes best possible move for AI
             grid[x - 1] = ai
 
-            # switches turns
+            # switch turns
             current_player = 1
 
         # check if the game has ended
@@ -291,7 +297,7 @@ def main():
             elif winner == 3:
                 print("Tie. Can't say I didn't see that coming.")
 
-            # ask user to try again
+            # prompt user to try again
             y = input(">> Care to try again? [y/n] ")
             if y.lower() == 'yes' or y.lower() == 'y':
                 main()

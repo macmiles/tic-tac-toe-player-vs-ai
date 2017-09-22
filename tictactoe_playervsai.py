@@ -284,11 +284,11 @@ def main():
         # remind the user that he's a mere mortal and will probably never win
         if winner != 0:
             if winner == 1:
-                print("Vitory! Congrats you have achieved the impossible.")
+                print("Victory! Congrats you have achieved the impossible.")
             elif winner == 2:
-                print("Defeat! It's ok, you have proven that you're only human. Well, a blind human. Honestly, how did you not see that move?")
+                print("Defeat! It's okay, you have proven that you're only human. Well, a blind human. Honestly, how did you not see that?")
             elif winner == 3:
-                print("Game has ended in a tie. Can't say I didn't see that coming.")
+                print("Tie. Can't say I didn't see that coming.")
 
             # ask user to try again
             y = input(">> Care to try again? [y/n] ")

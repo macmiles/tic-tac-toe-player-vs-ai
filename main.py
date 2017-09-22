@@ -1,6 +1,6 @@
 # PYTHON BASED TIC-TAC-TOE GAME WITH A WORKING AI
 # AUTHOR: SELIM CAM
-# DATE: 09.21.2017
+# DATE: 09.22.2017
 
 #  X | O | X
 # --- --- ---
@@ -18,8 +18,8 @@ player = "X"
 ai = 'O'
 
 # default grid list
-number_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-corner_list = ['1', '3', '7', '9']
+number_list = list(range(1, 10))
+corner_list = [1, 3, 7, 9]
 
 
 def print_gui(grid):
@@ -30,41 +30,45 @@ def print_gui(grid):
     print('--- --- ---')
     print(' %s | %s | %s ' % (grid[6], grid[7], grid[8]))
     print('')
-    return
 
 
 def check_winner(grid):
     winner = 0
 
-    # horizontal check - player & ai
-    for i in range(3):
-        if grid[0 + (i * 3)] == player and grid[1 + (i * 3)] == player and grid[2 + (i * 3)] == player:
-            winner = 1
-            break
-        if grid[0 + (i * 3)] == ai and grid[1 + (i * 3)] == ai and grid[2 + (i * 3)] == ai:
-            winner = 2
-            break
+    turn_list = [player, ai]
 
-    # vertical check - player & ai
-    for j in range(3):
-        if grid[0 + j] == player and grid[3 + j] == player and grid[6 + j] == player:
-            winner = 1
-            break
-        if grid[0 + j] == ai and grid[3 + j] == ai and grid[6 + j] == ai:
-            winner = 2
-            break
+    for turn in turn_list:
+        # horizontal check - player & ai
+        for i in range(3):
+            if grid[0 + (i * 3)] == turn and grid[1 + (i * 3)] == turn and grid[2 + (i * 3)] == turn:
+                if turn == player:
+                    winner = 1
+                else:
+                    winner = 2
+                break
 
-    # diagonal check - player
-    if grid[0] == player and grid[4] == player and grid[8] == player:
-        winner = 1
-    if grid[2] == player and grid[4] == player and grid[6] == player:
-        winner = 1
+        # vertical check - player & ai
+        for j in range(3):
+            if grid[0 + j] == turn and grid[3 + j] == turn and grid[6 + j] == turn:
+                if turn == player:
+                    winner = 1
+                else:
+                    winner = 2
+                break
 
-    # diagonal check - ai
-    if grid[0] == ai and grid[4] == ai and grid[8] == ai:
-        winner = 2
-    if grid[2] == ai and grid[4] == ai and grid[6] == ai:
-        winner = 2
+        # diagonal check - player
+        if grid[0] == turn and grid[4] == turn and grid[8] == turn:
+            if turn == player:
+                winner = 1
+            else:
+                winner = 2
+            break
+        if grid[2] == turn and grid[4] == turn and grid[6] == turn:
+            if turn == player:
+                winner = 1
+            else:
+                winner = 2
+            break
 
     selected_cells = 0
     for each in grid:
@@ -198,9 +202,10 @@ def ai_logic(grid):
 
             # if there are no viable moves for the AI to win and the player isn't one move away from winning, the else condition will trigger and the first available move is selected by the AI
             if min_cost_value != 99999:
-                cell_selection = random.choice(ai_cost[min_cost_index]['available'])
+                cell_selection = random.choice(
+                    ai_cost[min_cost_index]['available'])
                 for each in ai_cost[min_cost_index]['available']:
-                    if str(each) in corner_list:
+                    if each in corner_list:
                         cell_selection = each
                         break
             else:
@@ -249,8 +254,9 @@ def main():
                     x = int(x)
 
                     # checks to see if the input is a value between 1-9
-                    if str(x) not in number_list:
-                        print('Error - enter a number between 1-9 to select a cell on the grid.')
+                    if x not in number_list:
+                        print(
+                            'Error - enter a number between 1-9 to select a cell on the grid.')
                     else:
                         # validation to check if the chosen cell is empty
                         if grid[x - 1] not in number_list:
@@ -258,7 +264,8 @@ def main():
                         else:
                             error_check = 1  # if this executes, then error check was passed
                 except ValueError:
-                    print('Error - make sure to enter a number. Preferably one that\'s between 1-9.')
+                    print(
+                        'Error - make sure to enter a number. Preferably one that\'s between 1-9.')
 
             grid[x - 1] = player
             current_player = 2

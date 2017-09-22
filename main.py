@@ -150,16 +150,11 @@ def ai_logic(grid):
 
     # pulls cost analysis for all the possible moves the AI can make
     ai_cost = cost_check(ai, grid)
-
+    
+    # if debug mode is activated (debug_mode == 1), player and ai cost analysis for all possible moves is diplayed
     if debug_mode == 1:
-
         print('### Player Cost:', player_cost)
         print('### AI Cost:', ai_cost)
-
-    # # if debug mode is activated, player and ai cost analysis for all possible moves is diplayed
-    # if debug_mode == 1:
-    #     print('Player Cost:', player_cost)
-    #     print('AI Cost:', ai_cost)
 
     ai_cell_selection = []
     player_cell_selection = []
@@ -186,8 +181,7 @@ def ai_logic(grid):
     else:
         # list keeps track of cells chosen - ai uses this to win
         if grid[4] != player and grid[4] != ai:
-            # grid[4] = ai
-            cell_selection = 4 + 1
+            cell_selection = 5
         else:
             # find the min cost move
             min_cost_value = 99999
@@ -229,7 +223,7 @@ def main():
     # player gets to go first because humans > AI
     current_player = 1
 
-    # blank grid
+    # grid is set to a default list of values 1-9 
     grid = number_list[:]
 
     # print tic-tac-toe grid for the first time
